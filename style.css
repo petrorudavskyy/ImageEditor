@@ -1,0 +1,71 @@
+
+* {
+  box-sizing: border-box;
+  vertical-align: top;
+}
+
+body {
+  text-align: center;
+  background-image: url("http://wallpapers-hd.3dn.ru/_ph/8/662467329.jpg");
+  margin: 20px;
+  padding: 0;
+}
+
+.navbar {
+  background-color: #A8A8A8;
+  -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  -moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+  color: #000000;
+}
+
+h1 {
+  margin: 0 0;
+}
+
+canvas {
+  margin: 10px 0;
+}
+
+.filters button {
+  margin: 10px 0;
+}
+
+input[type="range"] {
+  margin: 0 0 10px 0;
+}
+
+.p {
+  padding-top: 50px;
+  clear: both;
+}
+
+
+.progress-wrapper {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+progress-arc {
+  position: relative;
+}
+
+.progress-text {
+  position: absolute;
+  top: 0;
+  text-align: center;
+  width: 100%;
+  margin-top: 85px;
+  font-size: 24px;
+}
+
+circle {
+  stroke-linecap: round;
+  stroke-width: 10px;
+  transition: stroke-dashoffset 0.1s linear;
+}
+
+.control {
+  position: relative;
+}
+
