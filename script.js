@@ -26,10 +26,202 @@ app.controller('DemoCtrl', function ($scope) {
     }
   });
 
-  
-  
-});
 
+  //set animate background
+  window.onload = function() {
+
+  window.requestAnimFrame = (function() {
+      //browser animate
+      return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        //set timeout
+        function(callback) {
+            window.setTimeout(callback, 1000);
+        };
+  })();
+  //get element by canvas im html
+  var C = document.getElementById("C");
+  var context = C.getContext("2d");
+  //number of stars
+  var num = 1500; 
+  //number of stars in circle
+  var added_mass = 0;
+  //circle radius
+  var circleRadius = 2;
+  //radius limit
+  var radiusLimit = (C.width + C.height) / 20;
+  //volume of circle
+  var circleVolume = 0;
+  var G = 0.5; //represents the constant of gravity in the system
+  // array of stars
+  var R = [];
+  console.log(R);
+  var star = function(x, y, r, volume, color, angle, orbitRadius, angularSpeed, randomSpeed0, acceleration) {
+    //propertys
+    this.x = x;
+    this.y = y;
+    this.r = r;
+    this.volume = volume;
+    this.color = color;
+    this.angle = angle;
+    this.orbitRadius = orbitRadius;
+    this.angularSpeed = angularSpeed;
+    this.randomSpeed0 = randomSpeed0;
+    this.acceleration = acceleration;
+  };
+  //init
+  function init() {
+    for (var i = 0; i < num; i++) {
+      makeStar(0);
+    }
+  }
+  //makestar
+  function makeStar(new_star) {
+    var x, y, r, volume, color, angle, orbitRadius, angularSpeed, randomSpeed0, acceleration;
+
+    x = C.width ;
+    y = C.height ;
+    //radius
+    r = Math.ceil(Math.random() * 2);
+    // formula of sphere
+    volume = (4 / 3) * Math.PI * Math.pow(r, 3);
+
+    color = "rgba(255,255,255,1)";
+    // set angle for stars, where their start animate
+    angle = Math.random() * (2 * Math.PI);
+    // set for center
+    if (new_star == 0) {
+      orbitRadius = (Math.random() * (C.width + C.height)) / 2;
+    } 
+    else {
+      orbitRadius =
+        Math.sqrt(Math.pow(C.width / 2 - C.width , 2) + Math.pow(C.height / 2 - C.height , 2) * 100);
+    }
+    //speed
+    angularSpeed = Math.random() * (Math.PI / orbitRadius);
+    randomSpeed0 = Math.random() * (Math.PI / orbitRadius);
+    acceleration = 1;
+    //push stars
+    R.push(
+      new star(x, y, r, volume, color, angle, orbitRadius, angularSpeed, randomSpeed0, acceleration)
+    );
+  }
+  
+
+  function setCanvasSize() {
+    C.width = document.documentElement.clientWidth;
+    C.height = document.documentElement.clientHeight;
+    //whole radius of animation
+    radiusLimit = (C.width + C.height) / 10;
+  }
+
+  function setMoveStar() {
+    // add color after move of star
+    context.fillStyle = "rgba(20,20,24,0.2)";
+    context.fillRect(0, 0, C.width, C.height);
+  }
+
+  function drawCenter() {
+    context.fillStyle = "rgb(0,0,0)";
+    context.shadowColor = "rgba(255,255,255,"+ Math.random() / 2 +")";
+    context.shadowBlur = circleRadius;
+    //begin
+    context.beginPath();
+    //circle
+    context.arc(C.width / 2, C.height / 2, circleRadius, 0, 2 * Math.PI);
+    context.closePath();
+    context.fill();
+
+    context.shadowColor = "none";
+    context.shadowBlur = 0;
+    // increase circle
+    if (circleRadius <= radiusLimit) {
+      circleRadius = 1 * Math.sqrt(added_mass / Math.PI) + 10;
+    }
+  }
+
+  function updateStar(i) {
+    var star = R[i];
+
+    star.x = C.width / 2 + Math.cos(star.angle) * star.orbitRadius;
+    star.y = C.height / 2 + Math.sin(star.angle) * star.orbitRadius;
+    //if not click, stars move to orbite
+    if(!mousedown) {
+      star.angle += star.angularSpeed;
+    }
+    //acceleration
+    star.acceleration = G * (star.r * circleVolume) / Math.pow(star.orbitRadius, 2);
+    // when near circle, change a color
+    star.color = "rgba(255," + Math.round(star.orbitRadius) + "," + Math.round(star.orbitRadius) + ",1)";
+
+    if (star.orbitRadius >= circleRadius) {
+      star.orbitRadius -= star.acceleration;
+    } 
+    // else, move to the circle
+    else {
+      added_mass += star.r;
+
+      R.splice(i, 1);
+      makeStar(1);
+      }
+  }
+
+  function isVisible(star) {
+    if (
+      star.x > C.width ||
+      star.x + star.r < 0 ||
+      star.y > C.height ||
+      star.y + star.r < 0
+    )
+    return false;
+
+    return true;
+  }
+
+  function drawStar(star) {
+    context.fillStyle = star.color;
+    //begin ath
+    context.beginPath();
+    context.fillRect(star.x, star.y, star.r, star.r);
+    context.fill();
+   }
+
+  function loop() {
+    setMoveStar();
+    var star;
+
+    circleVolume = (3 / 4) * Math.PI * Math.pow(circleRadius, 3);
+    for (var i = 0; i < R.length; i++) {
+    star = R[i];
+      if (isVisible(star)) {
+        drawStar(star);
+      }
+    updateStar(i);
+    }
+
+    drawCenter();
+    requestAnimFrame(loop);
+  }
+
+  window.addEventListener("resize", function() {
+    setCanvasSize();
+  });
+   
+  var mousedown=false;
+  window.addEventListener("mousedown",function(){
+    mousedown=true;
+  });
+  window.addEventListener("mouseup",function(){
+    mousedown=false;
+  });
+
+  setCanvasSize();
+  setMoveStar();
+  init();
+  loop();
+  }
+});
+//caman js
 $(function() {
   var canvas = document.getElementById('canvas');
   var context = canvas.getContext('2d');
