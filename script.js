@@ -1,8 +1,10 @@
-//use angular for circles
+//use angular 
 var app = angular.module('demo', ['angular-progress-arc']);
 
 app.controller('DemoCtrl', function ($scope) {
-  
+  //for tabs
+  $scope.selected = "1";
+
   // Init progress value
   $scope.progress = 0;
   
@@ -52,7 +54,8 @@ app.controller('DemoCtrl', function ($scope) {
   var radiusLimit = (C.width + C.height) / 20;
   //volume of circle
   var circleVolume = 0;
-  var G = 0.5; //represents the constant of gravity in the system
+  //represents the constant of gravity in the system
+  var G = 0.5; 
   // array of stars
   var R = [];
   console.log(R);
@@ -221,6 +224,7 @@ app.controller('DemoCtrl', function ($scope) {
   loop();
   }
 });
+
 //caman js
 $(function() {
   var canvas = document.getElementById('canvas');
@@ -279,10 +283,14 @@ $(function() {
     var cntrst = parseInt($('#contrast').val());
     var vibr = parseInt($('#vibrance').val());
     var sep = parseInt($('#sepia').val());
+    var gam = parseInt($('#gamma').val());
+    var brig = parseInt($('#bright').val());
+    var exp = parseInt($('#exposure').val());
+    var shar = parseInt($('#sharpen').val());
 
     Caman('#canvas', img, function() {
       this.revert(false);
-      this.hue(hue).contrast(cntrst).vibrance(vibr).sepia(sep).render();
+      this.hue(hue).contrast(cntrst).vibrance(vibr).sepia(sep).gamma(gam).brightness(brig).exposure(exp).sharpen(shar).render();
     });
   }
 
@@ -347,7 +355,7 @@ $(function() {
     Caman('#canvas', img, function() {
       this.tiltShift({
         angle: 90,
-        focusWidth: 600
+        focusWidth: 300
       }).render();
     });
   });

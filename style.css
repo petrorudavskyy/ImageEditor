@@ -1,6 +1,18 @@
-/*html {
-  overflow:hidden;
-}*/
+* {
+  box-sizing: border-box;
+  vertical-align: top;
+  font-family: 'Short Stack', cursive;
+}
+
+body {
+  text-align: center;
+  margin: 0px;
+  padding: 0;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'Short Stack', cursive;
+}
 
 #C {
   position: fixed;
@@ -11,16 +23,52 @@
 
 }
 
-* {
-  box-sizing: border-box;
-  vertical-align: top;
+body .tabs {
+  background: #A8A8A8;
+  border: 2px solid #1d70b7;
+  border-bottom: none;
 }
 
-body {
-  text-align: center;
-  /*background-image: url("http://wallpapers-hd.3dn.ru/_ph/8/662467329.jpg");*/
-  margin: 0px;
-  padding: 0;
+body .tabs span {
+  margin-right: -5px;
+  cursor: pointer;
+  position: relative;
+  padding: 18px 20px 18px;
+  display: inline-block;
+  color: #000000;
+  -webkit-transition: all .3s ease-in-out;
+  -moz-transition: all .3s ease-in-out;
+  transition: all .3s ease-in-out;
+}
+
+body .tabs span:hover {
+  color: #FFFFFF;
+  background: #222;
+}
+
+body .tabs .active {
+  background: #1d70b7;
+  color: #ffffff;
+}
+
+body .tabs .active:hover {
+  background: #1d70b7;
+  color: #ffffff;
+}
+
+body .tab-content {
+  border: 2px solid #1d70b7;
+  border-top: none;
+  background: #ffffff;
+  clear: both;
+  overflow: hidden;
+  text-align: left;
+  padding: 3%;
+  margin-bottom: 30px;
+}
+
+body .tab-content img {
+  border: 4px solid #f1f1f1;
 }
 
 .navbar {
@@ -33,6 +81,10 @@ body {
 
 h1 {
   margin: 0 0;
+}
+
+h3 {
+  margin-top: 0;
 }
 
 canvas {
@@ -50,7 +102,6 @@ input[type="range"] {
 .p {
   padding-top: 50px;
 }
-
 
 .progress-wrapper {
   position: relative;

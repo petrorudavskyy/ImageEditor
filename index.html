@@ -2,8 +2,9 @@
 <html ng-app="demo">
 	<head>
 		<meta charset="utf-8">
-		<title>Example</title>
+		<title>Image Editor</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.4/cosmo/bootstrap.min.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Short+Stack">
 		<link rel="stylesheet" href="style.css">
 	</head>
 	<body>
@@ -17,39 +18,77 @@
       <canvas id="canvas"></canvas>
     </div>
     <div class="col-lg-6">
-      <nav class="filters">
-        <button id="brightnessbtn" class="btn btn-primary">Brightness</button>
-        <button id="noisebtn" class="btn btn-primary">Noise</button>
-        <button id="sepiabtn" class="btn btn-primary">Sepia</button>
-        <button id="contrastbtn" class="btn btn-primary">Contrast</button>
-        <button id="colorbtn" class="btn btn-primary">Colorize</button>
-        <button id="oldpaperbtn" class="btn btn-primary">Old Paper</button>
-      </nav>
-      <nav class="filters">
-        <button id="vintagebtn" class="btn btn-primary">Vintage</button>
-        <button id="lomobtn" class="btn btn-primary">Lomo</button>
-        <button id="embossbtn" class="btn btn-primary">Emboss</button>
-        <button id="tiltshiftbtn" class="btn btn-primary">Tilt Shift</button>
-        <button id="radialblurbtn" class="btn btn-primary">Radial Blur</button>
-        <button id="edgeenhancebtn" class="btn btn-primary">Edge Enhance</button>
-      </nav>
-      <nav class="filters">
-        <button id="posterizebtn" class="btn btn-primary">Posterize</button>
-        <button id="claritybtn" class="btn btn-primary">Clarity</button>
-        <button id="orangepeelbtn" class="btn btn-primary">Orange Peel</button>
-        <button id="sincitybtn" class="btn btn-primary">Sin City</button>
-        <button id="sunrisebtn" class="btn btn-primary">Sun Rise</button>
-        <button id="crossprocessbtn" class="btn btn-primary">Cross Process</button>
-      </nav>
-      <nav class="filters">
-        <button id="hazydaysbtn" class="btn btn-primary">Hazy</button>
-        <button id="lovebtn" class="btn btn-primary">Love</button>
-        <button id="grungybtn" class="btn btn-primary">Grungy</button>
-        <button id="jarquesbtn" class="btn btn-primary">Jarques</button>
-        <button id="pinholebtn" class="btn btn-primary">Pin Hole</button>
-        <button id="oldbootbtn" class="btn btn-primary">Old Boot</button>
-        <button id="glowingsunbtn" class="btn btn-primary">Glow Sun</button>
-      </nav>
+      <div  ng-controller='DemoCtrl'>
+        <div class='tabs'>
+          <span ng-class="{'active': (selected == '1')}" ng-click='selected=1'>
+            About
+          </span>
+          <span ng-class="{'active': (selected == '2')}" ng-click='selected=2'>
+            Simplest
+          </span>
+          <span ng-class="{'active': (selected == '3')}" ng-click='selected=3'>
+            Simply
+          </span>
+          <span ng-class="{'active': (selected == '4')}" ng-click='selected=4'>
+            Heavy
+          </span>
+          <span ng-class="{'active': (selected == '5')}" ng-click='selected=5'>
+            Heaviest
+          </span>
+        </div>
+        <div class='tab-content'>
+          <div ng-show='selected == 1'>
+            <h3>How to use</h3>
+            <p>You can remake random simple picture in your masterpiece =)</p>
+            <p>You can use styles that are in this tab-menu. You need only to ckick on button. They are located with increasing complexity of styles. Or make your own style using slider at the bottom of a page. If you want return to original picture click on button "Reset Photo". If you want to save your image, click at "Save Image". Make your own Mona Lisa =)</p>
+            <p>Beauty in simplicity. =)</p>
+            <h3>About</h3>
+            <p>This is my first editor of pictures. I used AngularJs and CamanJs. And make my own background-animation.</p>
+            <h3>Thanks for watching!</h3>
+          </div>
+          <div ng-show='selected == 2'>
+            <nav class="filters">
+              <button id="brightnessbtn" class="btn btn-primary">Brightness</button>              
+              <button id="sepiabtn" class="btn btn-primary">Sepia</button>
+              <button id="contrastbtn" class="btn btn-primary">Contrast</button>
+              <button id="colorbtn" class="btn btn-primary">Colorize</button>
+              <button id="tiltshiftbtn" class="btn btn-primary">Tilt Shift</button>
+              <button id="radialblurbtn" class="btn btn-primary">Radial Blur</button>
+            </nav>
+          </div>
+          <div ng-show='selected == 3'>
+            <nav class="filters">
+              <button id="vintagebtn" class="btn btn-primary">Vintage</button>
+              <button id="noisebtn" class="btn btn-primary">Noise</button>
+              <button id="lomobtn" class="btn btn-primary">Lomo</button>
+              <button id="embossbtn" class="btn btn-primary">Emboss</button>
+              <button id="jarquesbtn" class="btn btn-primary">Jarques</button>
+              <button id="hazydaysbtn" class="btn btn-primary">Hazy</button>
+              <button id="lovebtn" class="btn btn-primary">Love</button>
+            </nav>
+          </div>
+          <div ng-show='selected == 4'>
+            <nav class="filters">
+              <button id="posterizebtn" class="btn btn-primary">Posterize</button>
+              <button id="claritybtn" class="btn btn-primary">Clarity</button>
+              <button id="orangepeelbtn" class="btn btn-primary">Orange Peel</button>
+              <button id="sincitybtn" class="btn btn-primary">Sin City</button>
+              <button id="sunrisebtn" class="btn btn-primary">Sun Rise</button>
+              <button id="crossprocessbtn" class="btn btn-primary">Cross Process</button>
+            </nav>
+          </div>
+          <div ng-show='selected == 5'>
+            <nav class="filters">
+              <button id="oldpaperbtn" class="btn btn-primary">Old Paper</button>                          
+              <button id="grungybtn" class="btn btn-primary">Grungy</button>            
+              <button id="pinholebtn" class="btn btn-primary">Pin Hole</button>
+              <button id="oldbootbtn" class="btn btn-primary">Old Boot</button>
+              <button id="glowingsunbtn" class="btn btn-primary">Glow Sun</button>
+              <button id="edgeenhancebtn" class="btn btn-primary">Edge Enhance</button>
+            </nav>
+          </div>
+        </div>
+      </div>      
       <nav class="filters">
         <button id="resetbtn" class="btn btn-success">Reset Photo</button>
         <button id="savebtn" class="btn btn-success">Save Image</button>
@@ -88,6 +127,42 @@
           </div>
           <label class="labels" for="sepia">Sepia</label>
           <input type="range" class="control" min="0" max="100" value="0" step="1" ng-model="progress" id="sepia"/>
+        </div>
+      </div>
+    </div>
+    <div class="container">
+      <div class="col-lg-12">
+        <div class="col-lg-3" ng-controller = "DemoCtrl">
+          <div class="progress-wrapper">
+            <progress-arc complete="progress" stroke="{{barColor}}"></progress-arc>
+            <p class="progress-text">{{progress  | number: 0}}</p>
+          </div>
+          <label class="labels" for="gamma">Gamma</label>
+          <input type="range" class="control" min="1" max="10" value="0" step="0.1" ng-model="progress" id="gamma"/>
+        </div>
+        <div class="col-lg-3" ng-controller = "DemoCtrl">
+          <div class="progress-wrapper">
+            <progress-arc complete="progress" stroke="{{barColor}}"></progress-arc>
+            <p class="progress-text">{{progress  | number: 0}}</p>
+          </div>
+          <label class="labels" for="bright">Brightness</label>
+          <input type="range" class="control" min="-100" max="100" value="0" step="1" ng-model="progress" id="bright"/>
+        </div>
+        <div class="col-lg-3" ng-controller = "DemoCtrl">
+          <div class="progress-wrapper">
+            <progress-arc complete="progress" stroke="{{barColor}}"></progress-arc>
+            <p class="progress-text">{{progress  | number: 0}}</p>
+          </div>
+          <label class="labels" for="exposure">Exposure</label>
+          <input type="range" class="control" min="-100" max="100" value="0" step="1" ng-model="progress" id="exposure"/>
+        </div>
+        <div class="col-lg-3" ng-controller = "DemoCtrl">
+          <div class="progress-wrapper">
+            <progress-arc complete="progress" stroke="{{barColor}}"></progress-arc>
+            <p class="progress-text">{{progress  | number: 0}}</p>
+          </div>
+          <label class="labels" for="sharpen">Sharpen</label>
+          <input type="range" class="control" min="0" max="100" value="0" step="1" ng-model="progress" id="sharpen"/>
         </div>
       </div>
     </div>
